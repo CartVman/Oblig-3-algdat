@@ -1,6 +1,5 @@
 package no.oslomet.cs.algdat.Oblig3;
 
-
 import java.util.*;
 
 public class SBinTre<T> {
@@ -82,26 +81,26 @@ public class SBinTre<T> {
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
 
-        Node<T> root = rot, parent = null;               // root starter i roten
+        Node<T> p = rot, parent = null;               // root starter i roten
         int cmp = 0;                                    // hjelpevariabel
 
-        while (root != null)                                // fortsetter til root er ute av treet
+        while (p != null)                                // fortsetter til root er ute av treet
         {
-            parent = root;                                 // q er forelder til root
-            cmp = comp.compare(verdi,root.verdi);           // bruker komparatoren
-            root = cmp < 0 ? root.venstre : root.høyre;     // flytter root
+            parent = p;                                 // q er forelder til root
+            cmp = comp.compare(verdi,p.verdi);           // bruker komparatoren
+            p = cmp < 0 ? p.venstre : p.høyre;     // flytter root
         }
 
         // root er nå null, dvs. ute av treet, q er den siste vi passerte
 
-        root = new Node<T>(verdi,parent);                   // creates a new node and points to the parent node
+        p = new Node<T>(verdi,parent);                   // creates a new node and points to the parent node
 
         if (parent == null) {
-            rot = root;                  // root blir rotnode
+            rot = p;                  // root blir rotnode
         } else if (cmp < 0) {
-            parent.venstre = root;         // venstre barn til q
+            parent.venstre = p;         // venstre barn til q
         } else {
-            parent.høyre = root;                        // høyre barn til q
+            parent.høyre = p;                        // høyre barn til q
         }
 
         antall++;                                // én verdi mer i treet
@@ -109,11 +108,64 @@ public class SBinTre<T> {
     }
 
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (verdi == null) return false;  // treet har ingen nullverdier
+
+        Node<T> p = rot, q = null;   // q skal være forelder til p
+
+        while (p != null)            // leter etter verdi
+        {
+            int cmp = comp.compare(verdi,p.verdi);      // sammenligner
+            if (cmp < 0) { q = p; p = p.venstre; }      // går til venstre
+            else if (cmp > 0) { q = p; p = p.høyre; }   // går til høyre
+            else break;    // den søkte verdien ligger i p
+        }
+        if (p == null) return false;   // finner ikke verdi
+
+        if (p.venstre == null || p.høyre == null)  // Tilfelle 1) og 2)
+        {
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;  // b for barn
+
+            if (b != null) {
+                b.forelder = q;
+            }
+
+            if (p == rot) {
+                rot = b;
+            }
+            else if (p == q.venstre) {
+                q.venstre = b;
+            }
+            else {
+                q.høyre = b;
+            }
+        }
+        else  // Tilfelle 3)
+        {
+            Node<T> s = p, r = p.høyre;   // finner neste i inorden
+            while (r.venstre != null)
+            {
+                s = r;    // s er forelder til r
+                r = r.venstre;
+            }
+
+            p.verdi = r.verdi;   // kopierer verdien i r til p
+
+            if (s != p) s.venstre = r.høyre;
+            else s.høyre = r.høyre;
+        }
+
+        antall--;   // det er nå én node mindre i treet
+        return true;
     }
 
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int antall = antall(verdi);           // gets the total number of similar values inside a list.
+
+        while (inneholder(verdi)) {         // loops until the last similar value of the parameter verdi
+            fjern(verdi);                   // removes every values that are equal to parameter verdi
+        }
+
+        return antall;                      // return total number of similar values inside a list
     }
 
     public int antall(T verdi) {
@@ -136,7 +188,15 @@ public class SBinTre<T> {
     }
 
     public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node <T> root = førstePostorden(rot);               // find the first postorder node
+
+        while (antall != 0) {                               // loops until it is empty
+            if (root != null) {
+                fjern(root.verdi);                          // remove the current postorder value
+                root = nestePostorden(root);                // move to the next postorder node
+            }
+            antall--;                                       // reduce size
+        }
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
@@ -218,7 +278,6 @@ public class SBinTre<T> {
             }
         }
         return result;                                      // return the serialized tree
-
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
