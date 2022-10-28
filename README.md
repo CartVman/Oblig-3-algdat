@@ -12,7 +12,8 @@ The code is from the compendium. it creates a binarysearch tree. every value tha
 checked to place it in the right position. Using the while loop, it checks every node to see where to put 
 the values. inside the loop, there is a comparator to know if the value is bigger or smaller than the current
 node (if less than zero, go left, if not, then go right). the new value will have its own node and will be position
-its correct place by using if statements and comparator. (Programkode 5.2 3a, compendium).
+its correct place by using if statements and comparator. (Programkode 5.2 3a, compendium). the new nodes that are being created
+uses a constructor to add the parent for that new node.
 
 Oppgave 2
 The code is a solution from the compendium. It starts with a node that is equal to root and loops until the end using while-loop.
