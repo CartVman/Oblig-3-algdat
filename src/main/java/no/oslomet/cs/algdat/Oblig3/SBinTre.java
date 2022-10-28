@@ -141,34 +141,34 @@ public class SBinTre<T> {
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
         if (p == null) {
-            return null;
+            return null;                // return if p is equal to null
         }
 
-        while (true) {
+        while (true) {                  // this loop finds the first node that has no child
             if (p.venstre != null) {
                 p = p.venstre;
             } else if(p.høyre != null){
                 p = p.høyre;
             } else {
-                return p;
+                return p;               // return the node that has no child
             }
         }
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        Node <T> parent = p.forelder;
+        Node <T> parent = p.forelder;           // create a node parent
 
         if (parent == null) {
-            return null;
+            return null;                        // return null if parent is null
         }
 
         if (parent.høyre== p) {
-            p = parent;
-        } else if (parent.venstre == p) {
+            p = parent;                         // if p is the right child of its parent, the parent is the next node
+        } else if (parent.venstre == p) {       // if p is the left child of its parent
             if (parent.høyre == null) {
-                p = parent;
+                p = parent;                     // and it is the only child, its parent is the next node
             } else {
-                p = førstePostorden(parent.høyre);
+                p = førstePostorden(parent.høyre); // if the node is not the only child, then check the first postorder node of the parent of that node.
             }
         }
         return p;
