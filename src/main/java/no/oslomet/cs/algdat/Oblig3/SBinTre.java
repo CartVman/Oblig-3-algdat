@@ -281,12 +281,12 @@ public class SBinTre<T> {
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        SBinTre <K> temp = new SBinTre<>(c);            // create an object to call the other methods
+        SBinTre <K> tree = new SBinTre<>(c);            // create an object to call the other methods
 
         for (K value : data) {                          // loops every value that comes from the parameter data
-            temp.leggInn(value);                        // inserting the values inside the object in level order
+            tree.leggInn(value);                        // inserting the values inside the object in level order
         }
 
-        return temp;                                    // return the level ordered tree.
+        return tree;                                    // return the level ordered tree.
     }
 } // ObligSBinTre
