@@ -201,14 +201,32 @@ public class SBinTre<T> {
     }
 
     public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        ArrayDeque<Node<T>>list = new ArrayDeque<>();
+        list.addLast(rot);
+        ArrayList <T> result = new ArrayList<>();
+
+        while (!list.isEmpty()) {
+            Node<T> p = list.pop();
+            result.add(p.verdi);
+
+            if (p.venstre != null) {
+                list.addLast(p.venstre);
+            }
+            if (p.høyre != null) {
+                list.addLast(p.høyre);
+            }
+        }
+        return result;
+
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
+        SBinTre <K> temp = new SBinTre<>(c);
 
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        for (K value : data) {
+            temp.leggInn(value);
+        }
 
+        return temp;
     }
-
-
 } // ObligSBinTre
