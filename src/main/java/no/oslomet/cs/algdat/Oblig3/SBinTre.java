@@ -176,12 +176,13 @@ public class SBinTre<T> {
 
     public void postorden(Oppgave<? super T> oppgave) {
         if (tom()) {
-            return;
+            return;                             // return if the list is empty
         }
-        Node <T> temp = førstePostorden(rot);
-        while (temp != null) {
+
+        Node <T> temp = førstePostorden(rot);       // create a root node
+        while (temp != null) {                      // loop until the temp is quel to null (empty list).
             oppgave.utførOppgave(temp.verdi);
-            temp = nestePostorden(temp);
+            temp = nestePostorden(temp);            // find the next postorder node.
         }
     }
 
@@ -191,11 +192,11 @@ public class SBinTre<T> {
 
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
         if (p == null) {
-            return;
+            return;                         // return if p is null
         }
 
-        postordenRecursive(p.venstre,oppgave);
-        postordenRecursive(p.høyre,oppgave);
+        postordenRecursive(p.venstre,oppgave);      // calls the function repeatedly to transverse p to the left until it is equal to null
+        postordenRecursive(p.høyre,oppgave);        // calls the function repeatedly to transverse p to the right until the p node is equal to null
 
         oppgave.utførOppgave(p.verdi);
     }
