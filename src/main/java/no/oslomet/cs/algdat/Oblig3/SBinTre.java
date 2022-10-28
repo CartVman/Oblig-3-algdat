@@ -113,7 +113,6 @@ public class SBinTre<T> {
     }
 
     public int fjernAlle(T verdi) {
-
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
@@ -142,49 +141,15 @@ public class SBinTre<T> {
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        if (p == null) {
-            return null;
-        }
-
-        while (true) {
-            if (p.venstre != null) {
-                p = p.venstre;
-            } else if(p.høyre != null){
-                p = p.høyre;
-            } else {
-                return p;
-            }
-        }
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        Node <T> parent = p.forelder;
-
-        if (parent == null) {
-            return null;
-        }
-
-        if (parent.høyre== p) {
-            p = parent;
-        } else if (parent.venstre == p) {
-            if (parent.høyre == null) {
-                p = parent;
-            } else {
-                p = førstePostorden(parent.høyre);
-            }
-        }
-        return p;
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
-        if (tom()) {
-            return;
-        }
-        Node <T> temp = førstePostorden(rot);
-        while (temp != null) {
-            oppgave.utførOppgave(temp.verdi);
-            temp = nestePostorden(temp);
-        }
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
@@ -192,33 +157,11 @@ public class SBinTre<T> {
     }
 
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        if (p == null) {
-            return;
-        }
-
-        postordenRecursive(p.venstre,oppgave);
-        postordenRecursive(p.høyre,oppgave);
-
-        oppgave.utførOppgave(p.verdi);
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
     public ArrayList<T> serialize() {
-        ArrayDeque<Node<T>>list = new ArrayDeque<>();   // Se Avsnitt 4.2.2
-        list.addLast(rot);                    // legger inn roten
-        ArrayList <T> result = new ArrayList<>();
-
-        while (!list.isEmpty()) {
-            Node<T> p = list.pop();             // tar ut fra køen
-            result.add(p.verdi);
-
-            if (p.venstre != null) {
-                list.addLast(p.venstre);
-            }
-            if (p.høyre != null) {
-                list.addLast(p.høyre);
-            }
-        }
-        return result;
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
