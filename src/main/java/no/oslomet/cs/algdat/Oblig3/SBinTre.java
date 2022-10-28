@@ -105,7 +105,7 @@ public class SBinTre<T> {
         }
 
         antall++;                                // én verdi mer i treet
-         return true;                             // vellykket innlegging
+        return true;                             // vellykket innlegging
     }
 
     public boolean fjern(T verdi) {
@@ -117,19 +117,19 @@ public class SBinTre<T> {
     }
 
     public int antall(T verdi) {
-        Node<T> p = rot;
-        int antallVerdi = 0;
+        Node<T> p = rot;                // creates a node to loop
+        int antallVerdi = 0;            // counts the duplicate number
 
-        while (p != null)
+        while (p != null)               // loops until the list is empty or pointing to null
         {
-            int cmp = comp.compare(verdi,p.verdi);
+            int cmp = comp.compare(verdi,p.verdi);          // compare to get the direction
             if (cmp < 0) {
-                p = p.venstre;
+                p = p.venstre;                              // go left
             } else {
                 if (cmp == 0) {
                     antallVerdi++;
                 }
-                p = p.høyre;
+                p = p.høyre;                                // go right
             }
         }
         return antallVerdi;
