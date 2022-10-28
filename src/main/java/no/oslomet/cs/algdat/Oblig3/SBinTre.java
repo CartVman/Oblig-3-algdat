@@ -202,32 +202,32 @@ public class SBinTre<T> {
     }
 
     public ArrayList<T> serialize() {
-        ArrayDeque<Node<T>>list = new ArrayDeque<>();
+        ArrayDeque<Node<T>>list = new ArrayDeque<>();       // Create a queue for storing the nodes
         list.addLast(rot);
-        ArrayList <T> result = new ArrayList<>();
+        ArrayList <T> result = new ArrayList<>();           // use for storing the values from the queue
 
-        while (!list.isEmpty()) {
-            Node<T> p = list.pop();
-            result.add(p.verdi);
+        while (!list.isEmpty()) {                           // loops until the list queue is empty
+            Node<T> p = list.pop();                         // to get the last node from the list
+            result.add(p.verdi);                              // then adding it to the arraylist result
 
             if (p.venstre != null) {
-                list.addLast(p.venstre);
+                list.addLast(p.venstre);                    // adding the value to the left
             }
             if (p.høyre != null) {
-                list.addLast(p.høyre);
+                list.addLast(p.høyre);                      // storing the value to the right
             }
         }
-        return result;
+        return result;                                      // return the serialized tree
 
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        SBinTre <K> temp = new SBinTre<>(c);
+        SBinTre <K> temp = new SBinTre<>(c);            // create an object to call the other methods
 
-        for (K value : data) {
-            temp.leggInn(value);
+        for (K value : data) {                          // loops every value that comes from the parameter data
+            temp.leggInn(value);                        // inserting the values inside the object in level order
         }
 
-        return temp;
+        return temp;                                    // return the level ordered tree.
     }
 } // ObligSBinTre
