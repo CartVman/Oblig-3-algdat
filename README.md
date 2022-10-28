@@ -51,4 +51,15 @@ it will return an arraylist.
 
 The deserialize method creates an object to be used for calling a method inside its class. Using a for-each loop the data
 parameter will be stored one by one to the object that is created from the start. it will be stored in a level order using the method
-legginn. it will return a binarysearch tree level order 
+legginn. it will return a binarysearch tree level order .
+
+Oppgave 6
+The method fjern comes from the compendium. the additional code that is added is on line 128. if the child node is not
+not equal to null, then its new parents will be the parent of the node that is going to be removed.
+The fjernalle method uses another method to count all the similar values inside the list and will return it
+at the end. it uses a while loop and the condition for that loop uses a method called inneholder which
+will return a boolean (return true if there still a similar value that exist in a list, then false if there is not).
+The nullstill method uses førstepostorder method to gets its starting node. it has a while-loop that will 
+run until the size of the list is equal to zero. inside the loop every values that are equal to the parameter
+value is going to be removed using the fjern method. the nestepostorden method is used to select the nest postorder node that
+will be removed. in the en all the nodes inside the list will be removed.
